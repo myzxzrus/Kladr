@@ -26,6 +26,11 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 @posts.route('/')
 def index():
     posts = Post.query.all()
-    print(posts)
     return render_template('posts/index.html', posts=posts)
 
+
+
+@posts.route('/<slug>'):   # <slug> имя параметра
+def post_detail(slug):
+    post = Post.query.filter(Post.slug==slug).first()
+    return render_template('posts/post_detail.html', post=post)
