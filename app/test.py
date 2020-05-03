@@ -1,6 +1,6 @@
-from models_kladr import Kladr
-from app import db
-from threading import Thread
+# from models_kladr import Kladr
+# from app import db
+# from threading import Thread
 
 # p = Kladr.query.filter(Kladr.code.contains('4600000000000')).all()
 #
@@ -52,20 +52,18 @@ from threading import Thread
 
 
 
-p = Kladr.query.filter(Kladr.code.like('%00000000000')).all()
-
-for i in p:
-    str = '{} {}'.format(i.name, i.socr)
-    print(str)
-
-
-
+# p = Kladr.query.filter(Kladr.code.like('%00000000000')).all()
+#
+# for i in p:
+#     str = '{} {}'.format(i.name, i.socr)
+#     print(str)
+#
 
 
-
-
-
+level = '4600000000000'
+st = level[:2]
+print(st)
 
 
 
-|
+

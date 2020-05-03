@@ -20,4 +20,4 @@ class Kladr(db.Model):
         super(Kladr, self).__init__(*args, **kwargs)
 
     def __repr__(self):  #reprezentaishen определяет представление класса
-        return 'name:{}, socr:{}'.format(self.name, self.socr)
+        return 'name:{}, socr:{}, code:{}, index:{}, gninmb:{}, uno:{}, ocatd:{}, status:{}'.format(self.name, self.socr, self.code, self.index, self.gninmb, self.uno, self.ocatd, self.status)

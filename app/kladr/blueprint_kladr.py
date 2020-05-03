@@ -26,6 +26,13 @@ kladr = Blueprint('kladr', __name__, template_folder='templates')
 @kladr.route('/')
 def index():
     kladrs = Kladr.query.filter(Kladr.code.like('%00000000000')).all()
-    print(kladrs)
     return render_template('kladr/index.html', kladrs=kladrs)
 
+'''Передаем уровень вхождения в kladr # 'CC РРР ГГГ ППП АА' '''
+
+@kladr.route('/<level>')  # <level> имя параметра
+def kladr_detail(level):
+    # cod = level[:2]
+    st = f'{level}___00000000'
+    kladrs = Kladr.query.filter(Kladr.code.like(st)).all()
+    return render_template('kladr/kladr_detail.html', kladrs=kladrs)

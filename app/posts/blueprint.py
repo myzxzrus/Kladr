@@ -30,7 +30,7 @@ def index():
 
 
 
-@posts.route('/<slug>'):   # <slug> имя параметра
+@posts.route('/<slug>')  # <slug> имя параметра
 def post_detail(slug):
     post = Post.query.filter(Post.slug==slug).first()
     return render_template('posts/post_detail.html', post=post)

@@ -15,7 +15,7 @@
 
 {% for post in posts %}
 <div class="container">
-<div class="row">{{ post.title }}</div></div>
+<div class="row"><a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{ post.title }}</a></div></div>
 {% endfor %}
 
 {% endblock %}
