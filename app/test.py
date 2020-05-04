@@ -60,8 +60,8 @@
 #
 
 
-level = '4600000000000'
-st = level[:2]
+level = '4601000000000'
+st = level[5:]
 print(st)
 
 

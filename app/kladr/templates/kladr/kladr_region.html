@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blueprint_kladr index page
+{% endblock  %}
+
+
+{% block content_title %}
+    Kladr
+{% endblock  %}
+
+
+{% block content %}
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  District
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in district %}
+        {% if not post.code[2:] == '00000000000' %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code[2:5]) }}">{{ post.name }} {{ post.socr }}</a></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Citi
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in citi %}
+        {% if not post.code[2:] == '00000000000' %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code[2:8]) }}">{{ post.name }} {{ post.socr }}</a></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Settlement
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in settlement %}
+        {% if not post.code[2:] == '00000000000' %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code) }}">{{ post.name }} {{ post.socr }}</a></div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock  %}

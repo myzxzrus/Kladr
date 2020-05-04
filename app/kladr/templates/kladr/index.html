@@ -12,8 +12,11 @@
 
 
 {% block content %}
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in kladrs %}
-        <div class="container">
-        <div class="row"><a href="{{ url_for('kladr.kladr_detail', level=post.code[:2]) }}">{{ post.name }} {{ post.socr }}</a></div></div>
+
+        <div class="row"><a href="{{ url_for('kladr.kladr_region', region=post.code[:2]) }}">{{ post.name }} {{ post.socr }}</a></div>
+
     {% endfor %}
+</div>
 {% endblock %}

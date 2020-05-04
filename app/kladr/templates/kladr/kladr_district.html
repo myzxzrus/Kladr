@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blueprint_kladr index page
+{% endblock  %}
+
+
+{% block content_title %}
+    Kladr
+{% endblock  %}
+
+
+{% block content %}
+
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Citi
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in citi %}
+        {% if not post.code[5:] == '00000000' %}
+        <div class="row">{{ post.name }} {{ post.socr }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Settlement
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in settlement %}
+        {% if not post.code[5:] == '00000000' %}
+    <div class="row">{{ post.name }} {{ post.socr }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock  %}

@@ -30,9 +30,25 @@ def index():
 
 '''Передаем уровень вхождения в kladr # 'CC РРР ГГГ ППП АА' '''
 
-@kladr.route('/<level>')  # <level> имя параметра
-def kladr_detail(level):
-    # cod = level[:2]
-    st = f'{level}___00000000'
-    kladrs = Kladr.query.filter(Kladr.code.like(st)).all()
-    return render_template('kladr/kladr_detail.html', kladrs=kladrs)
+@kladr.route('/<region>')  # <region> имя параметра
+def kladr_region(region):
+    # for region
+    like_district = f'{region}___000000__'
+    like_citi = f'{region}000___000__'
+    like_settlement = f'{region}000000_____'
+    district = Kladr.query.filter(Kladr.code.like(like_district)).all()
+    citi = Kladr.query.filter(Kladr.code.like(like_citi)).all()
+    settlement = Kladr.query.filter(Kladr.code.like(like_settlement)).all()
+    template_context = dict(district=district, citi=citi, settlement=settlement)
+    return render_template('kladr/kladr_region.html', **template_context)
+
+
+@kladr.route('/<region>/<level_district>')  # <level> имя параметра
+def kladr_district(region, level_district):
+    # for distrikt
+    like_citi = f'{region+level_district}___000__'
+    like_settlement = f'{region+level_district}000_____'
+    citi = Kladr.query.filter(Kladr.code.like(like_citi)).all()
+    settlement = Kladr.query.filter(Kladr.code.like(like_settlement)).all()
+    template_context = dict(citi=citi, settlement=settlement)
+    return render_template('kladr/kladr_district.html', **template_context)
