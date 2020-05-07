@@ -51,18 +51,135 @@
 #     print(kladr_list)
 
 
+import dbf
+import models_kladr
+from app import db
+from models_kladr import Kladr, Street, Doma, Altnames, Namemap, Socrbase, Flat
 
-# p = Kladr.query.filter(Kladr.code.like('%00000000000')).all()
-#
-# for i in p:
-#     str = '{} {}'.format(i.name, i.socr)
-#     print(str)
-#
+db.create_all()
+
+def create_Kladr():
+    tables = dbf.Table('KLADR.dbf', codepage='cp866')
+    tables.open()
+    len_table = len(tables)  # Колличество записей
+    action = 0  # Счетчик действий
+    step = 50000  # Шаги
+    step_1 = len_table // step  # колличество шагов кратных step
+    step_2 = len_table % step  # колличество шагов меньше step
+    for i in tables:
+        p = Kladr(name=i['name'].replace(' ', ''),
+                  socr=i['socr'].replace(' ', ''),
+                  code=i['code'].replace(' ', ''),
+                  index=i['index'].replace(' ', ''),
+                  gninmb=i['gninmb'].replace(' ', ''),
+                  uno=i['uno'].replace(' ', ''),
+                  ocatd=i['ocatd'].replace(' ', ''),
+                  status=i['status'].replace(' ', ''))
+        db.session.add(p)
+        action = action + 1
+        if len_table > step:  # если колличество записей больше колличества шагов step
+            if action == step:  # если колличество действий сравнялось колличеству шагов step
+                print(action)
+                db.session.commit()  # вносим изменения вбазу
+                print('session commit')
+                step_1 = step_1 - 1  # уменьшаем колличество шагов кратных step
+                print(step_1)
+                action = 0
+            if step_1 == 0:
+                if action == step_2:
+                    print(action)
+                    db.session.commit()
+                    action = 0
+                    print(len_table)
+        if len_table < step:
+            if action == len_table:
+                print(action)
+                db.session.commit()
+                action = 0
+                print(len_table)
 
 
-level = '4601000000000'
-st = level[5:]
-print(st)
+def create_street():
+    tables = dbf.Table('STREET.dbf', codepage='cp866')
+    tables.open()
+    len_table = len(tables)  # Колличество записей
+    action = 0  # Счетчик действий
+    step = 50000  # Шаги
+    step_1 = len_table // step  # колличество шагов кратных step
+    step_2 = len_table % step  # колличество шагов меньше step
+    for i in tables:
+        p = Street(name=i['name'].replace(' ', ''),
+                  socr=i['socr'].replace(' ', ''),
+                  code=i['code'].replace(' ', ''),
+                  index=i['index'].replace(' ', ''),
+                  gninmb=i['gninmb'].replace(' ', ''),
+                  uno=i['uno'].replace(' ', ''),
+                  ocatd=i['ocatd'].replace(' ', ''))
+        db.session.add(p)
+        action = action + 1
+        if len_table > step:  # если колличество записей больше колличества шагов step
+            if action == step:  # если колличество действий сравнялось колличеству шагов step
+                print(action)
+                db.session.commit()  # вносим изменения вбазу
+                print('session commit')
+                step_1 = step_1 - 1  # уменьшаем колличество шагов кратных step
+                print(step_1)
+                action = 0
+            if step_1 == 0:
+                if action == step_2:
+                    print(action)
+                    db.session.commit()
+                    action = 0
+                    print(len_table)
+        if len_table < step:
+            if action == len_table:
+                print(action)
+                db.session.commit()
+                action = 0
+                print(len_table)
+
+def create_doma():
+    tables = dbf.Table('DOMA.dbf', codepage='cp866')
+    tables.open()
+    len_table = len(tables)  # Колличество записей
+    action = 0  # Счетчик действий
+    step = 50000  # Шаги
+    step_1 = len_table // step  # колличество шагов кратных step
+    step_2 = len_table % step  # колличество шагов меньше step
+    for i in tables:
+        p = Doma(name=i['name'].replace(' ', ''),
+                   korp=i['korp'].replace(' ', ''),
+                  socr=i['socr'].replace(' ', ''),
+                  code=i['code'].replace(' ', ''),
+                  index=i['index'].replace(' ', ''),
+                  gninmb=i['gninmb'].replace(' ', ''),
+                  uno=i['uno'].replace(' ', ''),
+                  ocatd=i['ocatd'].replace(' ', ''))
+        db.session.add(p)
+        action = action + 1
+        if len_table > step:  # если колличество записей больше колличества шагов step
+            if action == step:  # если колличество действий сравнялось колличеству шагов step
+                print(action)
+                db.session.commit()  # вносим изменения вбазу
+                print('session commit')
+                step_1 = step_1 - 1  # уменьшаем колличество шагов кратных step
+                print(step_1)
+                action = 0
+            if step_1 == 0:
+                if action == step_2:
+                    print(action)
+                    db.session.commit()
+                    action = 0
+                    print(len_table)
+        if len_table < step:
+            if action == len_table:
+                print(action)
+                db.session.commit()
+                action = 0
+                print(len_table)
+
+
+create_doma()
 
 
 

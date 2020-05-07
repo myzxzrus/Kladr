@@ -7,16 +7,17 @@
 
 
 {% block content_title %}
-    Kladr
+КЛАДР
 {% endblock %}
 
 
 {% block content %}
-<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Регионы Российской Федерации
+</div>
+<div class="container-fluid" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in kladrs %}
-
-        <div class="row"><a href="{{ url_for('kladr.kladr_region', region=post.code[:2]) }}">{{ post.name }} {{ post.socr }}</a></div>
-
+    <div class="row"><h6><spam class="badge badge-success">{{ post.code[:2] }} </spam><a href="{{ url_for('kladr.kladr_region', region=post.code[:2]) }}"> {{ post.name }} {{ post.socr }}</a></h6></div>
     {% endfor %}
 </div>
 {% endblock %}

@@ -11,36 +11,62 @@
 
 
 {% block content %}
+
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            {% for i in address %}
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socr }}</div>
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Код <b>КЛАДР</b>: {{ code }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% if district|length > 0 %}
 <div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  District
+  Районы:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in district %}
-        {% if not post.code[2:] == '00000000000' %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code[2:5]) }}">{{ post.name }} {{ post.socr }}</a></div>
-        {% endif %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">{{ post.name }} {{ post.socr }}</a></div>
     {% endfor %}
 </div>
+{% endif %}
 
+{% if citi|length > 0 %}
 <div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  Citi
+  Города:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in citi %}
-        {% if not post.code[2:] == '00000000000' %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code[2:8]) }}">{{ post.name }} {{ post.socr }}</a></div>
-        {% endif %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">{{ post.name }} {{ post.socr }}</a></div>
     {% endfor %}
 </div>
+{% endif %}
 
+{% if settlement|length > 0 %}
 <div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  Settlement
+  Населенные пункты:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in settlement %}
-        {% if not post.code[2:] == '00000000000' %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_district', region=post.code[:2], level_district=post.code) }}">{{ post.name }} {{ post.socr }}</a></div>
-        {% endif %}
+    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">{{ post.name }} {{ post.socr }}</a></div>
     {% endfor %}
 </div>
+{% endif %}
+
+{% if street|length > 0 %}
+    <div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+      Улицы:
+    </div>
+    <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+        {% for post in street %}
+
+        <div class="row"><a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">{{ post.name }} {{ post.socr }} {{ post.code }}</a></div>
+
+        {% endfor %}
+    </div>
+{% endif %}
+
 {% endblock  %}
