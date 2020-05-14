@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blueprint_kladr index page
+{% endblock  %}
+
+
+{% block content_title %}
+КЛАДР
+{% endblock  %}
+
+
+{% block content %}
+<!--Блок аддрес-->
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            {% for i in address %}
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socr }}</div>
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Код <b>КЛАДР</b>: {{ i.code }}</div>
+            {% if i.code[-2:] == '99' %}
+            <div class="container"
+                 style="background-color: #F2DEDE; color: #B94A48; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                Этот адресный объект не существует или упразднен.
+            </div>
+            {% endif %}
+            {% if altnames and altnames != i.code %}
+            <div class="container"
+                 style="background-color: #F2DEDE; color: #B94A48; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                "Объект был переподчинен или влился в состав другого объекта"
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--Таблица-->
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <table class="table">
+                <thead class=""
+                       style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                <tr>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код региона</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Почтовый индекс</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код АКАТО</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код налоговой</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in address %}
+                <tr>
+                    <td class="border-bottom">{% if i.code|length == 0%} - {% endif %} {{ i.code[:2] }}</td>
+                    <td class="border-bottom">{% if i.index|length == 0%} - {% endif %} {{ i.index }}</td>
+                    <td class="border-bottom">{% if i.ocatd|length == 0%} - {% endif %} {{ i.ocatd }}</td>
+                    <td class="border-bottom">{% if i.gninmb|length == 0%} - {% endif %} {{ i.gninmb }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Конец блока адресс-->
+
+{% if doma|length > 0 %}
+<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+  Дома:
+</div>
+
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <table class="table">
+                <thead class=""
+                       style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                <tr>
+                    <th class="py-1 font-weight-normal" scope="col" style="font-size: 1rem;">Интервал домов</th>
+                    <th class="py-1 font-weight-normal" scope="col" style="font-size: 1rem;">Почтовый индекс</th>
+                    <th class="py-1 font-weight-normal" scope="col" style="font-size: 1rem;">Код АКАТО</th>
+                    <th class="py-1 font-weight-normal" scope="col" style="font-size: 1rem;">Код налоговой</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in doma %}
+                <tr>
+                    <td>{{ post.name }}</td>
+                    <td>{{ post.index }}</td>
+                    <td>{{ post.ocatd }}</td>
+                    <td>{{ post.gninmb }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{% endif %}
+
+{% endblock  %}

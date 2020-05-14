@@ -1,72 +1,182 @@
 {% extends 'base.html' %}
 
+<!-- содержимое для блока Title-->
 {% block title %}
-    Blueprint_kladr index page
+Blueprint_kladr index page
 {% endblock  %}
 
+{% block head %}
+<style>
+    a.disable{
+    text-decoration: line-through;
+    color: #C0C0C0;
+    }
 
+    a.disable:hover{
+    text-decoration: underline;
+    text-decoration-color: #C0C0C0;
+    color: #C0C0C0;
+    }
+</style>
+{% endblock %}
+
+<!-- содержимое для блока Content_title-->
 {% block content_title %}
-    Kladr
+КЛАДР
 {% endblock  %}
 
-
+<!-- содержимое для блока Content-->
 {% block content %}
-
-<div class="container" >
+<!-- Шапка с полями адрес и код-->
+<div class="container" xmlns:border="http://www.w3.org/1999/xhtml">
     <div class="row justify-content-center">
         <div class="col-md-auto">
             {% for i in address %}
-            <div class="container" style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socr }}</div>
-            <div class="container" style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Код <b>КЛАДР</b>: {{ code }}</div>
+            <div class="container"
+                 style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                Адрес: {{ i.name }} {{ i.socr }}
+            </div>
             {% endfor %}
+            <div class="container"
+                 style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                Код <b>КЛАДР</b>: {{ code }}
+            </div>
+
+            {% if code[-2:] == '99' %}
+            <div class="container"
+                 style="background-color: #F2DEDE; color: #B94A48; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                Этот адресный объект не существует или упразднен.
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
 
+<!--Таблица-->
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <table class="table ">
+                <thead class=""
+                       style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+                <tr>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код региона</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Почтовый индекс</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код АКАТО</th>
+                    <th class="py-0 font-weight-normal" scope="col" style="font-size: 1rem;">Код налоговой</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in address %}
+                <tr>
+                    <td class="border-bottom">{% if i.code|length == 0%} - {% endif %} {{ i.code[:2] }}</td>
+                    <td class="border-bottom">{% if i.index|length == 0%} - {% endif %} {{ i.index }}</td>
+                    <td class="border-bottom">{% if i.ocatd|length == 0%} - {% endif %} {{ i.ocatd }}</td>
+                    <td class="border-bottom">{% if i.gninmb|length == 0%} - {% endif %} {{ i.gninmb }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--Конец шапки-->
+
+<!--Проверяем есть ли записи в районах и выводим блок районы-->
 {% if district|length > 0 %}
-<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  Районы:
+<div class="container"
+     style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+    Районы:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in district %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">{{ post.name }} {{ post.socr }}</a></div>
+    <div class="row">
+        {% if post.code[-2:] == '99' %}
+        <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% endif %}
+    </div>
     {% endfor %}
 </div>
 {% endif %}
+<!--Конец районов-->
 
+<!--Проверяем есть ли записи в Городах и выводим блок Города-->
 {% if citi|length > 0 %}
-<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  Города:
+<div class="container"
+     style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+    Города:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in citi %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">{{ post.name }} {{ post.socr }}</a></div>
+    <div class="row">
+        {% if post.code[-2:] == '99' %}
+        <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% endif %}
+    </div>
     {% endfor %}
 </div>
 {% endif %}
+<!--Конец Городов-->
 
+<!--Проверяем есть ли записи в Населенных пунктах и выводим блок населенные пункты-->
 {% if settlement|length > 0 %}
-<div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-  Населенные пункты:
+<div class="container"
+     style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+    Населенные пункты:
 </div>
 <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in settlement %}
-    <div class="row"><a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">{{ post.name }} {{ post.socr }}</a></div>
+    <div class="row">
+        {% if post.code[-2:] == '99' %}
+        <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% endif %}
+    </div>
     {% endfor %}
 </div>
 {% endif %}
+<!--Конец населенных пунктов-->
 
+<!--Проверяем есть ли записи в Улицах и выводим блок Улицы-->
 {% if street|length > 0 %}
-    <div class="container" style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-      Улицы:
+<div class="container"
+     style="background-color: rgba(52, 58, 64, 0.8); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
+    Улицы:
+</div>
+<div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
+    {% for post in street %}
+    <div class="row">
+        {% if post.code[-2:] == '99' %}
+        <a class="disable" href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">
+            {{ post.name }} {{ post.socr }}
+        </a>
+        {% endif %}
     </div>
-    <div class="container" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
-        {% for post in street %}
-
-        <div class="row"><a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">{{ post.name }} {{ post.socr }} {{ post.code }}</a></div>
-
-        {% endfor %}
-    </div>
+    {% endfor %}
+</div>
 {% endif %}
+<!--Конец улиц-->
 
 {% endblock  %}

@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>
-    {% block title %}
+        {% block title %}
 
-    {% endblock %} | Flask app
+        {% endblock %} | Flask app
     </title>
+        {% block head %}
+
+        {% endblock %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 </head>
 <body>
@@ -38,7 +42,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-                <ul class="navbar-nav mr-right">
+        <ul class="navbar-nav mr-right">
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
             </li>
@@ -59,26 +63,47 @@
         </h2>
 
 
-                {% block content%}
+        {% block content%}
 
-                {% endblock %}
+        {% endblock %}
 
 
+    </div>
+    <hr>
+        <div class="row mt-5">
+        <div class="col-mb-5"></div>
+        <p>
+
+            <b>«КЛАДР» - Классификатор адресов Российской Федерации</b><br>
+            Введен в действие с 01.12.2005 приказом ФНС России от 17.11.2005 № САЭ-3-13/594@.
+            Классификатор адресов России разработан ФГУП ГНИВЦ МНС России и предназначен для использования на объектах автоматизации МНС России и Минсвязи России.
+            Все коды - почтовый индекс, код ОКАТО и код инспекции ФНС РФ, представлены так, как они есть в исходной базе данных КЛАДРа, размещенном на сайте www.gnivc.ru
+            Внимание! Почтовый индекс, код ОКАТО и код налоговой инспекции ФНС РФ, полученные с помощью данного сайта,
+            имеют справочный характер. Сайт не несет ответственности за возможные убытки и нежелательные последствия, а
+            также упущенную выгоду, понесенные в результате использования информации, полученной на данном сайте.
+            Для получения почтового индекса, кода ОКАТО, кода налоговой инспекции ФНС РФ следует обращаться в
+            соответствующий компетентный государственный орган РФ.
+
+            Кладр онлайн позволяет быстро найти необходимые сведения территориального объекта РФ, например, почтового
+            индекса по адресу объекта.
+        </p>
     </div>
 </div>
 
 
-<!-- FOOTER -->
+<div class="container">
 
-
-
-<div class="row align-items-end">
-   <span style="font-size: .8rem;">©ZXZ_RUS</span>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
