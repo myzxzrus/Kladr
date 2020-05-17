@@ -29,7 +29,7 @@
     <div class="row justify-content-center">
         <div class="col-md-auto">
             {% for i in address %}
-            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socr }}</div>
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socrname.socrname }}</div>
             <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Код <b>КЛАДР</b>: {{ i.code }}</div>
             {% if i.code[-2:] == '99' %}
             <div class="container"
@@ -91,11 +91,11 @@
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_distrikt', region=post.code[:2], subtotal_region=post.code[2:], cheek='s') }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_distrikt', region=post.code[:2], subtotal_region=post.code[2:], cheek='s') }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>
@@ -113,11 +113,11 @@
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:11], street=post.code[11:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:11], street=post.code[11:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>
@@ -139,11 +139,11 @@
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:11], street=post.code[11:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:11], street=post.code[11:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>

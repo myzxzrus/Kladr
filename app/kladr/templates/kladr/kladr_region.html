@@ -34,7 +34,7 @@ Blueprint_kladr index page
             {% for i in address %}
             <div class="container"
                  style="background-color: rgba(52, 58, 64, 0.5); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">
-                Адрес: {{ i.name }} {{ i.socr }}
+                Адрес: {{ i.name }} {{ i.socrname.socrname }}
             </div>
             {% endfor %}
             <div class="container"
@@ -94,11 +94,11 @@ Blueprint_kladr index page
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:5]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>
@@ -118,11 +118,11 @@ Blueprint_kladr index page
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code[2:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>
@@ -142,11 +142,11 @@ Blueprint_kladr index page
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_subtotal_region', region=post.code[:2], subtotal_region=post.code) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>
@@ -166,11 +166,11 @@ Blueprint_kladr index page
     <div class="row">
         {% if post.code[-2:] == '99' %}
         <a class="disable" href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% else %}
         <a href="{{ url_for('kladr.kladr_street', region=post.code[:2], subtotal_region=post.code[2:13], street=post.code[13:]) }}">
-            {{ post.name }} {{ post.socr }}
+            {{ post.name }} {{ post.socrname.socrname }}
         </a>
         {% endif %}
     </div>

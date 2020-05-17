@@ -1,3 +1,5 @@
+from sqlalchemy.orm import relationship
+
 from app import db
 
 
@@ -8,13 +10,14 @@ class Kladr(db.Model):
     __tablename__ = 'kladr'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
-    socr = db.Column(db.String(10))
+    socr = db.Column(db.String(10), db.ForeignKey('socrbase.scname'))
     code = db.Column(db.String(13))
     index = db.Column(db.String(6))
     gninmb = db.Column(db.String(4))
     uno = db.Column(db.String(4))
     ocatd = db.Column(db.String(11))
     status = db.Column(db.String(1))
+    socrname = relationship('Socrbase')
 
     def __init__(self, *args, **kwargs):
         super(Kladr, self).__init__(*args, **kwargs)
@@ -29,12 +32,13 @@ class Street(db.Model):
     __tablename__ = 'street'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40))
-    socr = db.Column(db.String(10))
+    socr = db.Column(db.String(10), db.ForeignKey('socrbase.scname'))
     code = db.Column(db.String(17))
     index = db.Column(db.String(6))
     gninmb = db.Column(db.String(4))
     uno = db.Column(db.String(4))
     ocatd = db.Column(db.String(11))
+    socrname = relationship('Socrbase')
 
     def __init__(self, *args, **kwargs):
         super(Street, self).__init__(*args, **kwargs)

@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-md-auto">
             {% for i in address %}
-            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socr }}</div>
+            <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Адрес: {{ i.name }} {{ i.socrname.socrname }}</div>
             <div class="container" style="background-color: rgba(52, 58, 64, 0.6); color: #F3F3F4; border-radius: .25rem; margin-bottom: 1rem; margin-top: 1rem;">Код <b>КЛАДР</b>: {{ i.code }}</div>
             {% if i.code[-2:] == '99' %}
             <div class="container"

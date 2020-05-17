@@ -7,6 +7,11 @@ def slugify(s):
     return re.sub(pattern, '-', s)
 
 
+post_tags = db.Table('post_tags',
+                     db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+                     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
+                     )
+
 class Post(db.Model):
     __bind_key__ = 'myzxzrus'
     __tablename__ = 'post'
@@ -20,6 +25,8 @@ class Post(db.Model):
         super(Post, self).__init__(*args, **kwargs)
         self.generate_slug()
 
+    tags = db.relationship('Tag', secondary=post_tags, backref=db.backref('posts', lazy='dynamic'))
+
     def generate_slug(self):
         if self.title:
             self.slug = slugify(self.title)
@@ -29,21 +36,17 @@ class Post(db.Model):
 
 
 
-class Street_new(db.Model):
+class Tag(db.Model):
     __bind_key__ = 'myzxzrus'
-    __tablename__ = 'street_new'
+    __tablename__ = 'tag'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40))
-    socr = db.Column(db.String(10))
-    code = db.Column(db.String(17))
-    index = db.Column(db.String(6))
-    gninmb = db.Column(db.String(4))
-    uno = db.Column(db.String(4))
-    ocatd = db.Column(db.String(11))
+    name = db.Column(db.String(100))
+    slug = db.Column(db.String(100))
 
     def __init__(self, *args, **kwargs):
-        super(Street_new, self).__init__(*args, **kwargs)
+        super(Tag, self).__init__(*args, **kwargs)
+        self.slug = slugify(self.name)
 
-    def __repr__(self):  #reprezentaishen определяет представление класса
-        return 'name:{}, socr:{}, code:{}, index:{}, gninmb:{}, uno:{}, ocatd:{}'.format(self.name, self.socr, self.code, self.index, self.gninmb, self.uno, self.ocatd)
+    def __repr__(self):
+        return '<Tag id: {}, name: {}, slug: {}>'.format(self.id, self.name, self.slug)
 

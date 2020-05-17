@@ -17,7 +17,7 @@
 </div>
 <div class="container-fluid" style="-webkit-columns: 3; -moz-columns: 3; columns: 3;">
     {% for post in kladrs %}
-    <div class="row"><h6><spam class="badge badge-success">{{ post.code[:2] }} </spam><a href="{{ url_for('kladr.kladr_region', region=post.code[:2]) }}"> {{ post.name }} {{ post.socr }}</a></h6></div>
+    <div class="row"><h6><spam class="badge badge-success">{{ post.code[:2] }} </spam><a href="{{ url_for('kladr.kladr_region', region=post.code[:2]) }}"> {{ post.name }} {{ post.socrname.socrname }}</a></h6></div>
     {% endfor %}
 </div>
 {% endblock %}
